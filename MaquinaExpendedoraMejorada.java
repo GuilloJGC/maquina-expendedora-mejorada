@@ -78,8 +78,7 @@ public class MaquinaExpendedoraMejorada {
      * Cancela la operacion de compra del cliente actual y le
      * devuelve al cliente el dinero que ha introducido hasta el momento
      */
-    public int cancelarOperacionYDevolverDinero()
-    {
+    public int cancelarOperacionYDevolverDinero(){
         int cantidadDeDineroADevolver;
         cantidadDeDineroADevolver = balanceClienteActual;
         balanceClienteActual = 0;
@@ -87,10 +86,18 @@ public class MaquinaExpendedoraMejorada {
     }
     
     public int vaciarDineroDeLaMaquina() {
-        int vaciadoMaquina;
-        vaciadoMaquina = balanceClienteActual + totalDineroAcumulado; 
-        balanceClienteActual = 0;
-        totalDineroAcumulado = 0;
-        return vaciadoMaquina;
-    }
+        if(balanceClienteActual == 0){
+            int vaciadoMaquina;
+            vaciadoMaquina = balanceClienteActual + totalDineroAcumulado; 
+            balanceClienteActual = 0;
+            totalDineroAcumulado = 0;
+            return vaciadoMaquina;
+        }
+        else{
+            int vaciadoMaquina;
+            vaciadoMaquina = -1;
+            System.out.println("No se puede realizar la operación solicitada porque hay otra acción en curso.");
+            return vaciadoMaquina;
+        }
+    }   
 }
