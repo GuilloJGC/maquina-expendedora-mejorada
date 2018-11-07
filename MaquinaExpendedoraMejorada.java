@@ -10,18 +10,22 @@ public class MaquinaExpendedoraMejorada {
     private String estacionOrigen;
     // El destino del billete
     private String estacionDestino;
+    //Maquina normal o premio
+    private boolean maquinaPremio = true;
+    
 
     /**
      * Crea una maquina expendedora de billetes de tren con el 
      * precio del billete y el origen y destino dados. Se asume que el precio
      * del billete que se recibe es mayor que 0.
      */
-    public MaquinaExpendedoraMejorada(int precioDelBillete, String origen, String destino) {
+    public MaquinaExpendedoraMejorada(int precioDelBillete, String origen, String destino, boolean maquinaTienePremio) {
         precioBillete = precioDelBillete;
         balanceClienteActual = 0;
         totalDineroAcumulado = 0;
         estacionOrigen = origen;
         estacionDestino = destino;
+        maquinaPremio = maquinaTienePremio;
     }
 
     /**
@@ -67,6 +71,15 @@ public class MaquinaExpendedoraMejorada {
             totalDineroAcumulado = totalDineroAcumulado + precioBillete;
             // Reduce el balance del cliente actual dejandole seguir utilizando la maquina
             balanceClienteActual = balanceClienteActual - precioBillete;
+            if(maquinaPremio){
+                System.out.println("PREMIO!");
+                System.out.println("##################");
+                System.out.println("# Billete de tren:");
+                System.out.println("# De " + estacionOrigen + " a " + estacionDestino);
+                System.out.println("# " + precioBillete + " euros.");
+                System.out.println("##################");
+                System.out.println();         
+            }
         }
         else {
             System.out.println("Necesitas introducir " + (precioBillete - balanceClienteActual) + " euros mas!");
@@ -86,18 +99,14 @@ public class MaquinaExpendedoraMejorada {
     }
     
     public int vaciarDineroDeLaMaquina() {
+        int vaciadoMaquina = -1;
         if(balanceClienteActual == 0){
-            int vaciadoMaquina;
-            vaciadoMaquina = balanceClienteActual + totalDineroAcumulado; 
-            balanceClienteActual = 0;
+            vaciadoMaquina = totalDineroAcumulado; 
             totalDineroAcumulado = 0;
-            return vaciadoMaquina;
         }
         else{
-            int vaciadoMaquina;
-            vaciadoMaquina = -1;
             System.out.println("No se puede realizar la operación solicitada porque hay otra acción en curso.");
-            return vaciadoMaquina;
         }
+        return vaciadoMaquina;
     }   
 }
